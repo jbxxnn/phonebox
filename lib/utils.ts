@@ -9,3 +9,9 @@ export function cn(...inputs: ClassValue[]) {
 export const hasEnvVars =
   process.env.NEXT_PUBLIC_SUPABASE_URL &&
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+export function getWhatsAppLink(phone: string, productName: string) {
+  const message = `Hi, I'm interested in the ${productName} I saw on your website!`;
+  const encodedMessage = encodeURIComponent(message);
+  return `https://wa.me/${phone}?text=${encodedMessage}`;
+}

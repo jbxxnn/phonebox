@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
-import { ThemeProvider } from "next-themes";
+import { Archivo } from "next/font/google";
 import "./globals.css";
+
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -9,14 +11,29 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: {
+    default: "PhoneResell - Buy Phones Reviewed by Experts",
+    template: "%s | PhoneResell"
+  },
+  description: "High-quality phones reviewed by your favorite YouTube and TikTok creators. Order directly via WhatsApp with verified quality.",
+  openGraph: {
+    title: "PhoneResell - Expert Reviewed Phones",
+    description: "Verified pre-owned smartphones recommended by tech creators.",
+    type: "website",
+    siteName: "PhoneResell",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PhoneResell - Expert Reviewed Phones",
+    description: "Verified pre-owned smartphones recommended by tech creators.",
+  },
 };
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const archivo = Archivo({
+  variable: "--font-archivo",
   display: "swap",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export default function RootLayout({
@@ -26,15 +43,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+      <body className={`${archivo.variable} font-sans antialiased bg-background text-foreground`}>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
